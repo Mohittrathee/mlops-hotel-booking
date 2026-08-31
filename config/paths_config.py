@@ -1,8 +1,17 @@
 import os
 
 RAW_DIR="artifacts/raw"
-Raw_file_path=os.path.join(RAW_DIR,"raw.csv")
-Train_file_path=os.path.join(RAW_DIR,"train.csv")
-Test_file_path=os.path.join(RAW_DIR,"test.csv")
+RAW_FILE_PATH=os.path.join(RAW_DIR,"raw.csv")
+TRAIN_FILE_PATH=os.path.join(RAW_DIR,"train.csv")
+TEST_FILE_PATH=os.path.join(RAW_DIR,"test.csv")
 
-Config_path="config/config.yaml"
+CONFIG_PATH="config/config.yaml"
+
+####preprocesssing path######
+
+PROCESSED_DIR="artifacts/preprocessing"
+PROCESSED_TRAIN_DATA_PATH=os.path.join(PROCESSED_DIR,"Processed_train.csv")
+PROCESSED_TEST_DATA_PATH=os.path.join(PROCESSED_DIR,"Processed_test.csv")
+
+######training and tracking#######
+MODEL_OUTPUT_PATH="artifacts/models/lgbm.pkl"

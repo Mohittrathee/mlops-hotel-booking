@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Hotel Booking Prediction</title>
+</head>
+
+<body>
+    <main class="page">
+        <div class="card">
+            <header class="card-header">
+                <h1>Hotel Booking Prediction</h1>
+                <p class="subtitle">Enter the reservation details to estimate the cancellation risk.</p>
+            </header>
+
+            {% if prediction is not none %}
+            <div class="result {{ 'result-success' if prediction == 1 else 'result-danger' }}">
+                {% if prediction == 1 %}
+                <span class="result-title">Booking likely to be kept</span>
+                <span class="result-detail">The model predicts this booking will not be cancelled.</span>
+                {% else %}
+                <span class="result-title">Booking at risk of cancellation</span>
+                <span class="result-detail">The model predicts this booking will be cancelled.</span>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <form method="POST" class="form-grid">
+                <div class="form-group">
+                    <label for="lead_time">Lead Time (days)</label>
+                    <input type="number" min="0" required name="lead_time" id="lead_time" placeholder="e.g. 45">
+                </div>
+
+                <div class="form-group">
+                    <label for="no_of_special_request">Number of Special Requests</label>
+                    <input type="number" min="0" required name="no_of_special_request" id="no_of_special_request"
+                        placeholder="e.g. 1">
+                </div>
+
+                <div class="form-group">
+                    <label for="avg_price_per_room">Average Price Per Room</label>
+                    <input type="number" min="0" step="0.01" required name="avg_price_per_room"
+                        id="avg_price_per_room" placeholder="e.g. 110.00">
+                </div>
+
+                <div class="form-group">
+                    <label for="arrival_month">Arrival Month</label>
+                    <select required name="arrival_month" id="arrival_month">
+                        <option value="" disabled selected>Select month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="arrival_date">Arrival Date</label>
+                    <select required name="arrival_date" id="arrival_date">
+                        <option value="" disabled selected>Select date</option>
+                        {% for day in range(1, 32) %}
+                        <option value="{{ day }}">{{ day }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="market_segment_type">Market Segment Type</label>
+                    <select required name="market_segment_type" id="market_segment_type">
+                        <option value="" disabled selected>Select segment</option>
+                        <option value="0">Aviation</option>
+                        <option value="1">Complementary</option>
+                        <option value="2">Corporate</option>
+                        <option value="3">Offline</option>
+                        <option value="4">Online</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="no_of_week_nights">Number of Week Nights</label>
+                    <select required name="no_of_week_nights" id="no_of_week_nights">
+                        <option value="" disabled selected>Select nights</option>
+                        {% for n in range(0, 7) %}
+                        <option value="{{ n }}">{{ n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="no_of_weekend_nights">Number of Weekend Nights</label>
+                    <select required name="no_of_weekend_nights" id="no_of_weekend_nights">
+                        <option value="" disabled selected>Select nights</option>
+                        {% for n in range(0, 7) %}
+                        <option value="{{ n }}">{{ n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type_of_meal_plan">Type of Meal Plan</label>
+                    <select required name="type_of_meal_plan" id="type_of_meal_plan">
+                        <option value="" disabled selected>Select meal plan</option>
+                        <option value="0">Meal Plan 1</option>
+                        <option value="1">Meal Plan 2</option>
+                        <option value="2">Meal Plan 3</option>
+                        <option value="3">Not Selected</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="room_type_reserved">Room Type Reserved</label>
+                    <select required name="room_type_reserved" id="room_type_reserved">
+                        <option value="" disabled selected>Select room type</option>
+                        <option value="0">Room Type 1</option>
+                        <option value="1">Room Type 2</option>
+                        <option value="2">Room Type 3</option>
+                        <option value="3">Room Type 4</option>
+                        <option value="4">Room Type 5</option>
+                        <option value="5">Room Type 6</option>
+                        <option value="6">Room Type 7</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">Predict Cancellation</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

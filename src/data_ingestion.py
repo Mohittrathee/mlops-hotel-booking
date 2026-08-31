@@ -1,6 +1,6 @@
 import sys
-from config.paths_config import Config_path
-from config.paths_config import Raw_file_path
+from config.paths_config import CONFIG_PATH
+from config.paths_config import RAW_FILE_PATH
 import os
 import pandas as pd
 from google.cloud import storage 
@@ -28,7 +28,7 @@ class DataIngestion:
             client=storage.Client()
             bucket=client.bucket(self.bucket_name)
             blob=bucket.blob(self.bucket_file_name)
-            blob.download_to_filename(Raw_file_path)
+            blob.download_to_filename(RAW_FILE_PATH)
             logger.info(f"csv file is downloaded from {self.bucket_name} and {self.bucket_file_name}")
         except Exception as e:
             logger.error(f"data ingestion is failed {e}")
@@ -36,11 +36,11 @@ class DataIngestion:
 
     def split_data(self):
         try:
-            data=pd.read_csv(Raw_file_path)
+            data=pd.read_csv(RAW_FILE_PATH)
             train_data,test_data=train_test_split(data,test_size=1-self.train_test_split_ratio,random_state=42)
-            
-            train_data.to_csv(Train_file_path,index=False)
-            test_data.to_csv(Test_file_path,index=False)
+
+            train_data.to_csv(TRAIN_FILE_PATH,index=False)
+            test_data.to_csv(TEST_FILE_PATH,index=False)
             
             logger.info(f"data is split into train and test")
         except Exception as e:
@@ -59,7 +59,7 @@ class DataIngestion:
 
 
 if __name__=="__main__":
-  data_ingestion=DataIngestion(read_yaml(Config_path))
+  data_ingestion=DataIngestion(read_yaml(CONFIG_PATH))
 
   data_ingestion.run()
         

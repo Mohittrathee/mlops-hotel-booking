@@ -28,4 +28,6 @@ dist/
 
 # Python packaging
 .eggs/
-zodot_folder/
+
+#Mlflow
+mlruns
