@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        VENV_DIR:'venv'
+        VENV_DIR="venv"
     }
     stages{
         stage('Clone Github repo'){
@@ -17,9 +17,11 @@ pipeline{
             steps{
                 script{
                     echo 'setting up virtual environment'
-                    sh "python -m venv ${VENV_DIR}"
-                    sh ". ${VENV_DIR}/bin/activate"
-                    sh "pip install --upgrade pip"
+                    sh '''
+                    python -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                    '''
                     echo 'virtual environment created successfully'
                 }
             }
