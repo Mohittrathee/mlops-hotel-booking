@@ -31,3 +31,12 @@ dist/
 
 #Mlflow
 mlruns
+mlflow.db
+
+# Generated data/model artifacts (pulled from GCS / produced by the pipeline)
+artifacts/
+
+# GCP service account keys, if ever dropped in the repo dir
+*-key.json
+*key*.json
+service-account*.json
