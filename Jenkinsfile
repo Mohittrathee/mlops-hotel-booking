@@ -35,14 +35,5 @@ pipeline{
                 }
             }
         }
-        stage('Run training pipeline'){
-            steps{
-                script{
-                    echo 'running training pipeline'
-                    sh "${VENV_DIR}/bin/python pipeline/training_pipeline.py"
-                    echo 'training pipeline completed successfully'
-                }
-            }
-        }
     }
 }
